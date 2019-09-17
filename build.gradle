@@ -1,15 +1,12 @@
 buildscript {
     repositories {
-        mavenCentral()
+        google()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.android.tools.build:gradle:3.5.0'
     }
-}
-
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
 }
 
 allprojects {
@@ -17,8 +14,7 @@ allprojects {
     group = GROUP
 
     repositories {
-        mavenCentral()
+        google()
+        jcenter()
     }
 }
-
-apply plugin: 'android-reporting'

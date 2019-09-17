@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '22.0.1'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     sourceSets {
         main {
@@ -12,5 +12,3 @@ android {
         }
     }
 }
-
-apply from: 'gradle-mvn-push.gradle'
