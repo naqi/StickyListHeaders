@@ -94,7 +94,7 @@ internal open class AdapterWrapper(
      * Will recycle header from [WrapperView] if it exists
      */
     private fun recycleHeaderIfExists(wv: WrapperView) {
-        val header = wv.mHeader
+        val header = wv.header
         if (header != null) {
             // reset the headers visibility when adding it to the cache
             header.visibility = View.VISIBLE
@@ -107,7 +107,7 @@ internal open class AdapterWrapper(
      * [WrapperView] and will also recycle the divider if it exists.
      */
     private fun configureHeader(wv: WrapperView, position: Int): View {
-        var header: View? = if (wv.mHeader == null) popHeader() else wv.mHeader
+        var header: View? = if (wv.header == null) popHeader() else wv.header
         header = mDelegate.getHeaderView(position, header, wv)
         //if the header isn't clickable, the listSelector will be drawn on top of the header
         header.isClickable = true
@@ -134,7 +134,7 @@ internal open class AdapterWrapper(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): WrapperView {
         var wv = if (convertView == null) WrapperView(mContext) else convertView as WrapperView
-        val item = mDelegate.getView(position, wv.mItem, parent)
+        val item = mDelegate.getView(position, wv.item, parent)
         var header: View? = null
         if (previousPositionHasSameHeader(position)) {
             recycleHeaderIfExists(wv)
@@ -147,7 +147,7 @@ internal open class AdapterWrapper(
         } else if (item !is Checkable && wv is CheckableWrapperView) {
             wv = WrapperView(mContext)
         }
-        wv.update(item, header, mDivider, mDividerHeight)
+        mDivider?.let { wv.update(item, header, it, mDividerHeight) }
         return wv
     }
 

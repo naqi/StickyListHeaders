@@ -421,7 +421,7 @@ public class StickyListHeadersListView extends FrameLayout {
             }
 
             // update header views visibility
-            View childHeader = wrapperViewChild.mHeader;
+            View childHeader = wrapperViewChild.getHeader();
             if (wrapperViewChild.getTop() < top) {
                 if (childHeader.getVisibility() != View.INVISIBLE) {
                     childHeader.setVisibility(View.INVISIBLE);
