@@ -15,9 +15,9 @@ import java.util.List;
  class ExpandableStickyListHeadersAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     private final StickyListHeadersAdapter mInnerAdapter;
-    DualHashMap<View,Long> mViewToItemIdMap = new DualHashMap<View, Long>();
-    DistinctMultiHashMap<Integer,View> mHeaderIdToViewMap = new DistinctMultiHashMap<Integer, View>();
-    List<Long> mCollapseHeaderIds = new ArrayList<Long>();
+    DualHashMap<View,Long> mViewToItemIdMap = new DualHashMap<>();
+    DistinctMultiHashMap<Integer,View> mHeaderIdToViewMap = new DistinctMultiHashMap<>();
+    List<Long> mCollapseHeaderIds = new ArrayList<>();
 
     ExpandableStickyListHeadersAdapter(StickyListHeadersAdapter innerAdapter){
         this.mInnerAdapter = innerAdapter;
@@ -111,7 +111,7 @@ import java.util.List;
 
     public void expand(long headerId) {
         if(isHeaderCollapsed(headerId)){
-            mCollapseHeaderIds.remove((Object) headerId);
+            mCollapseHeaderIds.remove(headerId);
         }
     }
 

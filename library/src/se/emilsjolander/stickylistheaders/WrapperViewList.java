@@ -125,7 +125,7 @@ class WrapperViewList extends ListView {
 
 	private void addInternalFooterView(View v) {
 		if (mFooterViews == null) {
-			mFooterViews = new ArrayList<View>();
+			mFooterViews = new ArrayList<>();
 		}
 		mFooterViews.add(v);
 	}
