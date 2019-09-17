@@ -693,7 +693,7 @@ public class StickyListHeadersListView extends FrameLayout {
                 ((SectionIndexerAdapterWrapper) mAdapter).mSectionIndexerDelegate = null;
             }
             if (mAdapter != null) {
-                mAdapter.mDelegate = null;
+                mAdapter.setMDelegate(null);
             }
             mList.setAdapter(null);
             clearHeader();
@@ -724,7 +724,7 @@ public class StickyListHeadersListView extends FrameLayout {
     }
 
     public StickyListHeadersAdapter getAdapter() {
-        return mAdapter == null ? null : mAdapter.mDelegate;
+        return mAdapter == null ? null : mAdapter.getMDelegate();
     }
 
     public void setDivider(Drawable divider) {
