@@ -1,8 +1,16 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 28
+        versionCode 3
+        versionName "3.0"
+    }
 
     sourceSets {
         main {
@@ -11,4 +19,23 @@ android {
             res.srcDirs = ['res']
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        // Set true if we want to enforce the Linter during Release build
+        allWarningsAsErrors = false
+        jvmTarget = "1.8"
+    }
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.2.0-alpha04'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+}
+repositories {
+    mavenCentral()
 }
