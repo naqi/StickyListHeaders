@@ -19,6 +19,7 @@ import java.util.*
  * appropriately.
  *
  * @author Jake Wharton (jakewharton@gmail.com)
+ * @modified RNies 2019
  */
 internal open class AdapterWrapper(
     private val mContext: Context,
@@ -155,8 +156,8 @@ internal open class AdapterWrapper(
         this.mOnHeaderClickListener = onHeaderClickListener
     }
 
-    override fun equals(o: Any?): Boolean {
-        return mDelegate == o
+    override fun equals(other: Any?): Boolean {
+        return mDelegate == other
     }
 
     override fun getDropDownView(position: Int, convertView: View, parent: ViewGroup): View {

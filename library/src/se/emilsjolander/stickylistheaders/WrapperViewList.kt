@@ -24,12 +24,12 @@ internal class WrapperViewList(context: Context) : ListView(context) {
             if (mSelectorPositionField == null) {
                 for (i in 0 until childCount) {
                     if (getChildAt(i).bottom == mSelectorRect.bottom) {
-                        return i + fixedFirstVisibleItem
+                        return i.plus(fixedFirstVisibleItem)
                     }
                 }
             } else {
                 try {
-                    return mSelectorPositionField!!.getInt(this)
+                    return mSelectorPositionField?.getInt(this) ?: -1
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

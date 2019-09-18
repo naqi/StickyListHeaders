@@ -7,6 +7,7 @@ import android.widget.Checkable
  * A WrapperView that implements the checkable interface
  *
  * @author Emil Sjölander
+ * @modified RNies 2019
  */
 internal class CheckableWrapperView(context: Context) : WrapperView(context), Checkable {
 
