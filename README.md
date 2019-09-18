@@ -218,9 +218,9 @@ API
 ---
 ###StickyListHeadersAdapter
 ```java
-public interface StickyListHeadersAdapter extends ListAdapter {
-    View getHeaderView(int position, View convertView, ViewGroup parent);
-    long getHeaderId(int position);
+interface StickyListHeadersAdapter : ListAdapter {
+    fun getHeaderView(position: Int, convertView: View?, parent: ViewGroup): View
+    fun getHeaderId(position: Int): Long
 }
 ```
 Your adapter must implement this interface to function with `StickyListHeadersListView`.
@@ -241,7 +241,8 @@ A `OnHeaderClickListener` is the header version of OnItemClickListener. This is 
 public void setOnHeaderClickListener(OnHeaderClickListener listener);
 
 public interface OnHeaderClickListener {
-    public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky);
+    void onHeaderClick(StickyListHeadersListView l, View header,
+                           int itemPosition, long headerId, boolean currentlySticky);
 }
 ```
 
