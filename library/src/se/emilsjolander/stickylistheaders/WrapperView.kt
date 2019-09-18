@@ -3,7 +3,6 @@ package se.emilsjolander.stickylistheaders
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 
@@ -74,19 +73,20 @@ open class WrapperView internal constructor(c: Context) : ViewGroup(c) {
 
         //measure header or divider. when there is a header visible it acts as the divider
         if (header != null) {
-            val params = header!!.layoutParams
+            val params = header?.layoutParams
             if (params != null && params.height > 0) {
-                header!!.measure(
+                header?.measure(
                     childWidthMeasureSpec,
                     MeasureSpec.makeMeasureSpec(params.height, MeasureSpec.EXACTLY)
                 )
             } else {
-                header!!.measure(
+                header?.measure(
                     childWidthMeasureSpec,
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
                 )
             }
-            measuredHeight += header!!.measuredHeight
+            header?.let { measuredHeight += it.measuredHeight }
+
         } else if (mDivider != null && item?.visibility != View.GONE) {
             measuredHeight += mDividerHeight
         }
@@ -114,9 +114,6 @@ open class WrapperView internal constructor(c: Context) : ViewGroup(c) {
             }
         }
 
-        //enable hiding listview item,ex. toggle off items in group
-
-
         setMeasuredDimension(measuredWidth, measuredHeight)
     }
 
@@ -128,13 +125,13 @@ open class WrapperView internal constructor(c: Context) : ViewGroup(c) {
 
         when {
             header != null -> {
-                val headerHeight = header!!.measuredHeight
-                header!!.layout(l, t, r, headerHeight)
+                val headerHeight = header?.measuredHeight ?: 0
+                header?.layout(l, t, r, headerHeight)
                 mItemTop = headerHeight
                 item?.layout(l, headerHeight, r, b)
             }
             mDivider != null -> {
-                mDivider!!.setBounds(l, t, r, mDividerHeight)
+                mDivider?.setBounds(l, t, r, mDividerHeight)
                 mItemTop = mDividerHeight
                 item?.layout(l, mDividerHeight, r, b)
             }
@@ -148,12 +145,7 @@ open class WrapperView internal constructor(c: Context) : ViewGroup(c) {
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
         if (header == null && mDivider != null && item?.visibility != View.GONE) {
-            // Drawable.setBounds() does not seem to work pre-honeycomb. So have
-            // to do this instead
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-                canvas.clipRect(0, 0, width, mDividerHeight)
-            }
-            mDivider!!.draw(canvas)
+            mDivider?.draw(canvas)
         }
     }
 }

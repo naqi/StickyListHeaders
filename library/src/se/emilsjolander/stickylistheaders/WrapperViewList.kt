@@ -3,7 +3,6 @@ package se.emilsjolander.stickylistheaders
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
-import android.os.Build
 import android.view.View
 import android.widget.AbsListView
 import android.widget.ListView
@@ -20,9 +19,7 @@ internal class WrapperViewList(context: Context) : ListView(context) {
     private var mClippingToPadding = true
     private var mBlockLayoutChildren = false
 
-    private// not all supported andorid
-    // version have this variable
-    val selectorPosition: Int
+    private val selectorPosition: Int
         get() {
             if (mSelectorPositionField == null) {
                 for (i in 0 until childCount) {
@@ -47,23 +44,7 @@ internal class WrapperViewList(context: Context) : ListView(context) {
     // on old versions of android
     val fixedFirstVisibleItem: Int
         get() {
-            var firstVisibleItem = firstVisiblePosition
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                return firstVisibleItem
-            }
-            for (i in 0 until childCount) {
-                if (getChildAt(i).bottom >= 0) {
-                    firstVisibleItem += i
-                    break
-                }
-            }
-            if (!mClippingToPadding && paddingTop > 0 && firstVisibleItem > 0) {
-                if (getChildAt(0).top > 0) {
-                    firstVisibleItem -= 1
-                }
-            }
-
-            return firstVisibleItem
+            return firstVisiblePosition
         }
 
     internal interface LifeCycleListener {
@@ -78,11 +59,10 @@ internal class WrapperViewList(context: Context) : ListView(context) {
             selectorRectField.isAccessible = true
             mSelectorRect = selectorRectField.get(this) as Rect
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                mSelectorPositionField =
-                    AbsListView::class.java.getDeclaredField("mSelectorPosition")
-                mSelectorPositionField?.isAccessible = true
-            }
+            mSelectorPositionField =
+                AbsListView::class.java.getDeclaredField("mSelectorPosition")
+            mSelectorPositionField?.isAccessible = true
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -166,10 +146,6 @@ internal class WrapperViewList(context: Context) : ListView(context) {
     override fun setClipToPadding(clipToPadding: Boolean) {
         mClippingToPadding = clipToPadding
         super.setClipToPadding(clipToPadding)
-    }
-
-    fun setBlockLayoutChildren(block: Boolean) {
-        mBlockLayoutChildren = block
     }
 
     override fun layoutChildren() {
