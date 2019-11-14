@@ -38,7 +38,7 @@ open class StickyListHeadersListView constructor(
     FrameLayout(context, attrs, defStyle) {
 
     /* --- Children --- */
-    private var mList: WrapperViewList = WrapperViewList(context)
+    var mList: WrapperViewList = WrapperViewList(context)
     private var mHeader: View? = null
 
     /* --- Header state --- */
