@@ -9,7 +9,7 @@ import android.widget.ListView
 import java.lang.reflect.Field
 import java.util.*
 
-internal class WrapperViewList(context: Context) : ListView(context) {
+class WrapperViewList(context: Context) : ListView(context) {
 
     private var mLifeCycleListener: LifeCycleListener? = null
     private var mFooterViews: MutableList<View>? = null
@@ -47,7 +47,7 @@ internal class WrapperViewList(context: Context) : ListView(context) {
             return firstVisiblePosition
         }
 
-    internal interface LifeCycleListener {
+    interface LifeCycleListener {
         fun onDispatchDrawOccurred(canvas: Canvas)
     }
 
